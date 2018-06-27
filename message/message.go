@@ -50,29 +50,42 @@ func NewWarMessage(tag string) cqcode.Message {
 	return message
 }
 
-func SendChestMessage(tag string, bot qqbotapi.BotAPI) {
+func SendChestMessage(bot qqbotapi.BotAPI, group int64, at string, tag string) {
 
 	msg := make(cqcode.Message, 0)
-	msg.Append(&cqcode.Text{Text: "天灵灵~~~~~~~~~地灵灵~~~~~~~~~"})
+	msg.Append(&cqcode.At{QQ: at})
+	msg.Append(&cqcode.Text{Text: " 天灵灵~~~~~~~~~地灵灵~~~~~~~~~"})
 
-	bot.SendMessage(2434861, "group", msg)
+	bot.SendMessage(group, "group", msg)
 
 	chest := FetchChest(tag)
 
 	message := make(cqcode.Message, 0)
+	message.Append(&cqcode.At{QQ: at})
 	message.Append(&cqcode.Text{Text: chestHeader})
 
 	b := CreateChestImg(chest)
 	image, _ := qqbotapi.NewImageBase64(b)
 	message.Append(image)
-	bot.SendMessage(2434861, "group", message)
+	bot.SendMessage(group, "group", message)
 
 }
 
-func NewTextMessage(text string) cqcode.Message {
+func SendMessage(bot qqbotapi.BotAPI, group int64, at string, text string) {
 
 	message := make(cqcode.Message, 0)
+	message.Append(&cqcode.At{QQ: at})
 	message.Append(&cqcode.Text{Text: text})
 
-	return message
+	bot.SendMessage(group, "group", message)
+}
+
+func SendCommandTip(bot qqbotapi.BotAPI, group int64) {
+
+	message := make(cqcode.Message, 0)
+	message.Append(&cqcode.Text{Text: "你说什么，我听不懂耶~~~~\r"})
+	message.Append(&cqcode.Text{Text: "1. 指令：/bind xxxxx。绑定玩家TAG到当前qq号。\r"})
+	message.Append(&cqcode.Text{Text: "2. 指令：/chest。宝箱查询，仅当绑定了玩家TAG后才可以查询哟！"})
+
+	bot.SendMessage(group, "group", message)
 }
