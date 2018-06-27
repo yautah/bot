@@ -15,7 +15,7 @@ const (
 )
 
 func startListen() {
-	bot, err := qqbotapi.NewBotAPI("abcdefghijklmn", "http://localhost:5700", "abcdefghijklmn")
+	bot, err := qqbotapi.NewBotAPI("abcdefghijklmn", "http://192.168.1.69:5700", "abcdefghijklmn")
 	if err != nil {
 		log.Fatal(err)
 	}

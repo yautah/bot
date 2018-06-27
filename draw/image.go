@@ -29,6 +29,7 @@ func CreateDeckImg(teamDeck []Card, opponentDeck []Card) []byte {
 	for i, card := range teamDeck {
 
 		file, err := os.Open(fmt.Sprintf("./assets/cards/%s.png", card.Key))
+		log.Println(file)
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -96,7 +97,7 @@ func CreateChestImg(chest Chest) []byte {
 
 	for i, ct := range chest.Upcoming {
 
-		file, _ := os.Open(fmt.Sprintf("F:\\cr\\chests\\chest-%s.png", ct))
+		file, _ := os.Open(fmt.Sprintf("./assets/chests/chest-%s.png", ct))
 		img, _ := png.Decode(file)
 		defer file.Close()
 
