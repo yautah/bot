@@ -28,7 +28,7 @@ func CreateDeckImg(teamDeck []Card, opponentDeck []Card) []byte {
 
 	for i, card := range teamDeck {
 
-		file, _ := os.Open(fmt.Sprintf("F:\\cr\\after\\%s.png", card.Key))
+		file, _ := os.Open(fmt.Sprintf("./assets/cards/%s.png", card.Key))
 		img, _ := png.Decode(file)
 		defer file.Close()
 
@@ -108,7 +108,7 @@ func CreateChestImg(chest Chest) []byte {
 
 	specials := []string{"giant", "magical", "epic", "legendary", "supermagical"}
 	for k, v := range specials {
-		file, _ := os.Open(fmt.Sprintf("F:\\cr\\chests\\chest-%s.png", v))
+		file, _ := os.Open(fmt.Sprintf("./assets/chests/chest-%s.png", v))
 		img, _ := png.Decode(file)
 		defer file.Close()
 
