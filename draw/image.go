@@ -8,6 +8,7 @@ import (
 	"image"
 	"image/color"
 	"image/draw"
+	"image/jpeg"
 	"image/png"
 	"io/ioutil"
 	"log"
@@ -67,9 +68,25 @@ func CreateDeckImg(teamDeck []Card, opponentDeck []Card) []byte {
 
 }
 
-func CreateChestImg(chest Chest) []byte {
+func CreateQrImg() []byte {
 
-	log.Println(chest)
+	dst := image.NewRGBA(image.Rect(0, 0, 560, 540))
+	blue := color.White
+	draw.Draw(dst, dst.Bounds(), &image.Uniform{blue}, image.ZP, draw.Src)
+
+	file, _ := os.Open("./assets/qr.jpg")
+	img, _ := jpeg.Decode(file)
+	defer file.Close()
+
+	draw.Draw(dst, img.Bounds(), img, image.ZP, draw.Src)
+
+	emptyBuff := bytes.NewBuffer(nil) //开辟一个新的空buff
+	png.Encode(emptyBuff, dst)
+
+	return emptyBuff.Bytes()
+}
+
+func CreateChestImg(chest Chest) []byte {
 
 	dst := image.NewRGBA(image.Rect(0, 0, 560, 540))
 	blue := color.White

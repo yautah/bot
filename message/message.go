@@ -86,6 +86,20 @@ func SendCommandTip(bot qqbotapi.BotAPI, group int64) {
 	message.Append(&cqcode.Text{Text: "你说什么，我听不懂耶~~~~\r"})
 	message.Append(&cqcode.Text{Text: "1. 指令：/bind xxxxx。绑定玩家TAG到当前qq号。\r"})
 	message.Append(&cqcode.Text{Text: "2. 指令：/chest。宝箱查询，仅当绑定了玩家TAG后才可以查询哟！"})
+	message.Append(&cqcode.Text{Text: "3. 指令：/egg。主人留下的神秘菜单哦~~~~"})
+
+	bot.SendMessage(group, "group", message)
+
+}
+
+func SendQrMessage(bot qqbotapi.BotAPI, group int64, at string) {
+
+	message := make(cqcode.Message, 0)
+	message.Append(&cqcode.At{QQ: at})
+
+	b := CreateQrImg()
+	image, _ := qqbotapi.NewImageBase64(b)
+	message.Append(image)
 
 	bot.SendMessage(group, "group", message)
 }
