@@ -28,7 +28,10 @@ func CreateDeckImg(teamDeck []Card, opponentDeck []Card) []byte {
 
 	for i, card := range teamDeck {
 
-		file, _ := os.Open(fmt.Sprintf("./assets/cards/%s.png", card.Key))
+		file, err := os.Open(fmt.Sprintf("./assets/cards/%s.png", card.Key))
+		if err != nil {
+			log.Fatal(err)
+		}
 		img, _ := png.Decode(file)
 		defer file.Close()
 
